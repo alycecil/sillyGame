@@ -49,8 +49,6 @@ jar {
 	}
 }
 
-test { systemProperties 'property': 'value' }
-
 bootRun { addResources = false }
 
 sourceSets {

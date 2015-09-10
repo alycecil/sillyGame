@@ -1,4 +1,4 @@
-package com.wcecil.rts.pojo.core;
+package com.wcecil.rts.common.pojo.core;
 
 import groovy.transform.Canonical;
 import groovy.transform.CompileStatic;

@@ -1,18 +1,14 @@
 println 'Building Images'
 
 buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:$project.ext.springBootVersion")
-    }
-
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+	dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:$project.ext.springBootVersion") }
 }
-apply plugin: 'spring-boot'
- 
+
 description = 'images'
- 
+
 dependencies {
 }

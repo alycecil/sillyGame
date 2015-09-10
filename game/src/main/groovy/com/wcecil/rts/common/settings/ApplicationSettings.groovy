@@ -15,6 +15,9 @@ class ApplicationSettings {
 	@Value('${resource.buildings}')
 	String buildings
 	
+	@Value('${resource.tiles}')
+	String tiles
+	
 	@Value('${allow.debug}')
 	Boolean allowDebug
 }
