@@ -1,0 +1,65 @@
+apply plugin: 'eclipse'
+apply plugin: 'groovy'
+apply plugin: 'spring-boot'
+
+description = 'game' 
+
+def __env = 'local'
+
+if(System.getProperty('env')){
+	__env = System.getProperty('env')
+}
+
+
+println "Building $name for enviroment $__env"
+
+buildscript {
+	repositories { mavenCentral() }
+	dependencies { classpath "org.springframework.boot:spring-boot-gradle-plugin:$project.ext.springBootVersion" }
+}
+
+repositories { mavenCentral() }
+
+dependencies {
+	compile "org.springframework.boot:spring-boot-starter-web:$project.ext.springBootVersion"
+	compile "org.springframework.boot:spring-boot-starter-websocket:$project.ext.springBootVersion"
+
+	compile "org.springframework.boot:spring-boot-starter-actuator:$project.ext.springBootVersion"
+
+	compile "org.springframework.boot:spring-boot-starter-logging:$project.ext.springBootVersion"
+
+	compile 'org.springframework.data:spring-data-jpa:1.8.2.RELEASE'
+	compile 'org.springframework.data:spring-data-mongodb:1.7.2.RELEASE'
+
+	compile 'org.springframework:spring-messaging'
+
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.4'
+	compile 'org.codehaus.groovy:groovy-all:2.4.1'
+
+	testCompile 'junit:junit:4.4'
+	
+	compile project(":images")
+}
+
+sourceCompatibility = 1.7
+version = '0.0.1'
+jar {
+	manifest {
+		attributes 'Implementation-Title': 'RTS', 'Implementation-Version': version
+	}
+}
+
+test { systemProperties 'property': 'value' }
+
+bootRun { addResources = false }
+
+sourceSets {
+	main {
+		resources {
+			srcDirs = [
+				"src/env/$__env",
+				'src/main/resources'
+			]
+		}
+	}
+}

@@ -1,0 +1,25 @@
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+     
+    group = 'com.wcecil.game'
+    version = '0.0.1-SNAPSHOT'
+}
+ 
+subprojects {
+ 
+    apply plugin: 'java'
+	apply plugin: 'groovy'
+     
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+     
+    project.ext {
+        springBootVersion = '1.2.5.RELEASE'
+    }
+     
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}

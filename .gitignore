@@ -1,0 +1,15 @@
+/game/bin/
+/game/build/
+/images/build/
+/images/bin/
+/build/
+/bin/
+
+.classpath
+.settings
+.project
+
+.settings/
+.gradle/
+
+*.log
