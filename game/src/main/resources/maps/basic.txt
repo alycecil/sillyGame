@@ -1,0 +1,7 @@
+# lines that start with # are ignored, lines that start with ~ are description, ! is name
+!basic
+~A Simple Map
+010	010	010	010
+010	010	010	010
+010	02t4	010	01175
+010	010	010	0

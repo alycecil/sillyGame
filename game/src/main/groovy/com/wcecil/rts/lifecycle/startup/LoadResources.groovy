@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JavaType
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wcecil.rts.common.beans.GameResources
 import com.wcecil.rts.common.pojo.core.Building
+import com.wcecil.rts.common.pojo.core.GameMap
 import com.wcecil.rts.common.pojo.core.Sprite
 import com.wcecil.rts.common.pojo.core.Tile
 import com.wcecil.rts.common.settings.ApplicationSettings
@@ -36,13 +37,18 @@ public class LoadResources extends BasicLifecycle{
 					getStream(settings.getBuildings())
 					)
 					)
-			
-			gameResources.tiles = loadTiles(
-				StreamUtils.convertStreamToString(
-				getStream(settings.getTiles())
-				)
-				)
 
+			gameResources.tiles = loadTiles(
+					StreamUtils.convertStreamToString(
+					getStream(settings.getTiles())
+					)
+					)
+
+			gameResources.maps = loadMaps(
+					StreamUtils.convertStreamToString(
+					getStream(settings.getMaps())
+					)
+					)
 			println 'Ready!'
 		}catch(Throwable t){
 			t.printStackTrace()
@@ -54,6 +60,83 @@ public class LoadResources extends BasicLifecycle{
 		this.getClass().getClassLoader().getResourceAsStream(name)
 	}
 
+	private Map<String, GameMap> loadMaps(String json){
+		Map<String, GameMap> map = new HashMap<>();
+		JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, String.class)
+		try {
+			List<String> values = mapper.readValue(json, type)
+
+			values?.each { String name ->
+				try{
+					def mapDefn = StreamUtils.convertStreamToString(getStream(name))
+
+					def m = new GameMap();
+
+					Integer width = null;
+					
+					def tilesList = [] as List
+
+					mapDefn.eachLine { String line ->
+						line = line.trim()
+
+						if(line.startsWith('!')){
+							m.name=line.substring 1;
+						}else if(line.startsWith('~')){
+							if(m.description){
+								m.description = "${m.description}<br>\n${line.substring(1)}"
+							}else{
+								m.description=line.substring 1
+							}
+						}else if(line.startsWith('#')){
+							//ignore comment
+						}else{
+							def rawTiles = line.split("\\W+");
+							if(width){
+								if(width!=rawTiles.length){
+									throw new IllegalStateException("Unable to read map as lengths are inconsistent [expected ${width}, found ${rawTiles.length}]");
+								}
+							}else{
+								width = rawTiles.length;
+							}
+							def tiles = []
+
+							int i = 0;
+
+							rawTiles.each{ i++; 
+								it = it.trim();
+								def tile = gameResources.tiles.get(it);
+								
+								if(!tile){
+									tile = new Tile(name: it)
+									tile.avgColor = settings.unknownColor
+								}
+								
+								tiles << tile
+							}
+							
+							tilesList << tiles.toArray()
+						}
+					}
+					
+					if(!m.name){
+						m.name = name
+					}
+					
+					m.tiles = tilesList.toArray()
+					
+					map.put m.name, m
+				}catch (e) {
+					System.err.println("Error reading map [$name], $e; stack trace to follow")
+					e.printStackTrace()
+				}
+			}
+		} catch (e) {
+			System.err.println("Error reading Maps, $e; stack trace to follow")
+			e.printStackTrace()
+		}
+		
+		return map;
+	}
 
 	private Map<String, Building> loadBuildings(String json){
 		Map<String, Building> map = new HashMap<>();
@@ -73,7 +156,7 @@ public class LoadResources extends BasicLifecycle{
 		}
 		return map;
 	}
-	
+
 	private Map<String, Tile> loadTiles(String json){
 		Map<String, Tile> map = new HashMap<>();
 		JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, Tile.class)
@@ -147,7 +230,7 @@ public class LoadResources extends BasicLifecycle{
 		int rawColor = ((redBucket / pixelCount) as int) << 16 |
 				((greenBucket / pixelCount) as int) << 8 |
 				((blueBucket / pixelCount) as int);
-				
+
 		return "#${Integer.toHexString(rawColor)}" as String
 	}
 

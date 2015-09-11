@@ -18,6 +18,15 @@ class ApplicationSettings {
 	@Value('${resource.tiles}')
 	String tiles
 	
+	@Value('${resource.maps}')
+	String maps
+	
 	@Value('${allow.debug}')
 	Boolean allowDebug
+	
+	@Value('${color.unknown}')
+	String unknownColor
+	
+	@Value('${tile.size}')
+	Integer tileSize
 }

@@ -56,7 +56,8 @@ sourceSets {
 		resources {
 			srcDirs = [
 				"src/env/$__env",
-				'src/main/resources'
+				'src/main/resources',
+				'src/web/resources'
 			]
 		}
 	}
