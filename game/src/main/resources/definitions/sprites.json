@@ -1,3 +1,3 @@
 [
-{"name":"basicBuilding", "normal":"/images/sprites/46.bmp", "damaged":"/images/sprites/47.bmp", "heavyDamaged":"/images/sprites/48.bmp"}
+{"name":"basicBuilding", "normal":"images/sprites/46.bmp", "damaged":"images/sprites/47.bmp", "heavyDamaged":"images/sprites/48.bmp"}
 ]

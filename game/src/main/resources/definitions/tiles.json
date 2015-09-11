@@ -1,5 +1,5 @@
 [
-{"name":"010","normal":"/images/tileset/well0001/well/0000.bmp", "moveable":true, "buildable":true}
-,{"name":"01175","normal":"/images/tileset/well0001/well/0175.bmp", "moveable":false, "buildable":false}
-,{"name":"02t4","normal":"/images/tileset/well0001/well/0155.bmp", "moveable":true, "buildable":true, "tube":true}
+{"name":"010","normal":"images/tileset/well0001/well/0000.bmp", "moveable":true, "buildable":true}
+,{"name":"01175","normal":"images/tileset/well0001/well/0175.bmp", "moveable":false, "buildable":false}
+,{"name":"02t4","normal":"images/tileset/well0002/well/0155.bmp", "moveable":true, "buildable":true, "tube":true}
 ]

@@ -1,0 +1,11 @@
+.tile {
+    line-height: 32px;
+    padding: 0;
+    margin: 0;
+    display:inline-block;
+}
+
+.tile>img {
+    padding: 0;
+    vertical-align: initial;
+}
