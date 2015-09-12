@@ -1,5 +1,6 @@
 var map;
 var cell = 32;
+var mini = 2;
 var _x, _y;
 var renderIntercal;
 var repaint = true;
@@ -35,6 +36,12 @@ function renderMap() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		repaint = false;
 	}
+	renderMapTiles();
+	
+	renderMinimap();
+}
+
+function renderMapTiles(){
 	for (j = 0; j < map['tiles'].length; j++) {
 		for (i = 0; i < map['tiles'][j].length; i++) {
 			var tile = map['tiles'][j][i];
@@ -44,6 +51,22 @@ function renderMap() {
 					drawImage(tile, i, j, _x, _y);
 				} else {
 					drawColor(tile, i, j, _x, _y);
+				}
+			}
+		}
+	}
+}
+
+function renderMinimap(){
+	for (j = 0; j < map['tiles'].length; j++) {
+		for (i = 0; i < map['tiles'][j].length; i++) {
+			var tile = map['tiles'][j][i];
+
+			if (canvas.getContext) {
+				if (tile['avgColor'] != null) {
+					var ctx = canvas.getContext('2d');
+					ctx.fillStyle = tile['avgColor'];
+					ctx.fillRect(i * mini, j * mini, mini, mini);
 				}
 			}
 		}
