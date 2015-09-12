@@ -9,3 +9,8 @@
     padding: 0;
     vertical-align: initial;
 }
+
+#gameMap {
+    padding: 10px;
+    margin: 0;
+}

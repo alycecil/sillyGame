@@ -9,26 +9,26 @@
 <script type="text/javascript" src="js/lib/handlebars-v3.0.3.js"></script>
 <script type="text/javascript" src="js/lib/sha1.js"></script>
 <script type="text/javascript" src="js/handlebar-loader.js"></script>
+<script type="text/javascript" src="js/render.js"></script>
 </head>
-<body onLoad='registerPartials();'>
+<body onLoad='registerPartials();getAMap();'>
 
-<noscript>
-	<h2 style="color: #ff0000">Seems your browser doesn't support
-		Javascript! Websocket relies on Javascript being enabled. Please
-		enable Javascript and reload this page!</h2>
-</noscript>
-<div class="container-fluid" id='bodyFluid'>
-	<div class="row">
-		<div class="panel-body" id="gameHeader">&nbsp</div>
-	</div>
-	<div class="row">
-		<div class="panel-body" id='gamesList'>
-			<div class="centered">
-				<h3>
-					<i class="fa fa-spin fa-spinner"></i>Loading
-				</h3>
+	<noscript>
+		<h2 style="color: #ff0000">Seems your browser doesn't support
+			Javascript! This site relies on Javascript being enabled. Please
+			enable Javascript and reload this page!</h2>
+	</noscript>
+	<div class="container-fluid" id='bodyFluid'>
+		<div class="row">
+			<div class="panel-body" id="gameHeader">&nbsp</div>
+		</div>
+		<div class="row">
+			<div class="panel-body" id='gameMap'>
+				<canvas id="canvas" width="500" height="500" draggable=true ondrag="dragMap(event)" ondragend="dragendMap(event)" ondragstart="dragStartMap(event)">
+  Sorry, your browser doesn't support the &lt;canvas&gt; element.
+				</canvas>
 			</div>
 		</div>
 	</div>
-</div>
-</body></html>
+</body>
+</html>
